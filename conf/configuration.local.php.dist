@@ -1,0 +1,8 @@
+<?php
+
+$app['search_provider'] = 'Swiftype';
+$app['swiftype_username'] = 'your_Swiftype_username';
+$app['swiftype_password'] = 'your_Swiftype_password';
+$app['swiftype_api_key']  = 'your_Swiftype_api_key';
+$app['swiftype_engine']   = 'your_Swiftype_engine';
+

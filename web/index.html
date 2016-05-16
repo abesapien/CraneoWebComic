@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div ng-app="webComicApp" ng-controller="myCtrl">
+    <div>
+        <a href="#previous" ng-click="previous(current_page_number);">Previous</a>
+        <a href="#next" ng-click="next(current_page_number);">Next</a>
+        <a href="#all" ng-click="all(current_page_number)">All</a>
+    </div>
+
+    <img src="/pages/{{current_page_number}}.jpg">
+
+</div>
+
+<script>
+    var app = angular.module('webComicApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        $http.get("http://silex.local.crowdrise.com/webcomic.api/1")
+                .then(function(response) {
+                    $scope.comic_panel = response.data;
+                    $scope.current_page_number = $scope.comic_panel.page.page_number;                });
+
+        $scope.previous = function(current_page) {
+            $http.get("http://silex.local.crowdrise.com/webcomic.api/" + current_page + "?action=previous")
+                    .then(function(response) {
+                        $scope.comic_panel = response.data;
+                        $scope.current_page_number = $scope.comic_panel.page.page_number;
+                    });
+        }
+
+        $scope.next = function(current_page) {
+            $http.get("http://silex.local.crowdrise.com/webcomic.api/" + current_page + "?action=next")
+                    .then(function(response) {
+                        $scope.comic_panel = response.data;
+                        $scope.current_page_number = $scope.comic_panel.page.page_number;
+                    });
+        }
+
+        $scope.all = function(current_page) {
+            alert('this endpoint doesn\'t exist yet..');
+            $http.get("http://silex.local.crowdrise.com/webcomic.api/" + current_page + "?action=all")
+                    .then(function(response) {
+                        $scope.comic_panel = response.data;
+                        $scope.current_page_number = $scope.comic_panel.page.page_number;
+                    });
+        }
+    });
+</script>
+
+</body>
+</html>
