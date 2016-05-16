@@ -18,15 +18,16 @@
 </div>
 
 <script>
+    var base_url = ""; // @todo put this into a config file and remove all the duplication below.. 
     var app = angular.module('webComicApp', []);
     app.controller('myCtrl', function($scope, $http) {
-        $http.get("http://silex.local.crowdrise.com/webcomic.api/1")
+        $http.get(base_url + "/webcomic.api/1")
                 .then(function(response) {
                     $scope.comic_panel = response.data;
                     $scope.current_page_number = $scope.comic_panel.page.page_number;                });
 
         $scope.previous = function(current_page) {
-            $http.get("http://silex.local.crowdrise.com/webcomic.api/" + current_page + "?action=previous")
+            $http.get(base_url + "/webcomic.api/" + current_page + "?action=previous")
                     .then(function(response) {
                         $scope.comic_panel = response.data;
                         $scope.current_page_number = $scope.comic_panel.page.page_number;
@@ -34,7 +35,7 @@
         }
 
         $scope.next = function(current_page) {
-            $http.get("http://silex.local.crowdrise.com/webcomic.api/" + current_page + "?action=next")
+            $http.get(base_url + "/webcomic.api/" + current_page + "?action=next")
                     .then(function(response) {
                         $scope.comic_panel = response.data;
                         $scope.current_page_number = $scope.comic_panel.page.page_number;
@@ -43,7 +44,7 @@
 
         $scope.all = function(current_page) {
             alert('this endpoint doesn\'t exist yet..');
-            $http.get("http://silex.local.crowdrise.com/webcomic.api/" + current_page + "?action=all")
+            $http.get(base_url + "/webcomic.api/" + current_page + "?action=all")
                     .then(function(response) {
                         $scope.comic_panel = response.data;
                         $scope.current_page_number = $scope.comic_panel.page.page_number;
